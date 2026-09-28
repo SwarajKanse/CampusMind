@@ -18,3 +18,5 @@ Thumbs.db
 *.log
 syllabus_text.txt
 wmc_text.txt
+books/
+*.pdf
