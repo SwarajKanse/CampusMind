@@ -50,6 +50,21 @@ async def upload_document(
     db.commit()
     db.refresh(doc)
 
+    # Embed and store in ChromaDB vector store
+    try:
+        from services.rag_service import RAGService
+        rag = RAGService()
+        chunk_dicts = [
+            {"text": c, "doc_id": doc.id, "chunk_idx": i, "source": file.filename}
+            for i, c in enumerate(chunks)
+        ]
+        rag.add_documents(chunk_dicts)
+        doc.status = "embedded"
+        db.commit()
+    except Exception as e:
+        doc.status = f"embedding_failed: {str(e)[:100]}"
+        db.commit()
+
     return {
         "id": doc.id,
         "filename": file.filename,
