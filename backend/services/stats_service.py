@@ -114,3 +114,6 @@ class StatsService:
             "r_squared": round(r_squared, 4),
             "equation": f"y = {round(slope, 3)}x + {round(intercept, 3)}",
         }
+
+
+stats_service = StatsService()

@@ -66,3 +66,6 @@ class IntentClassifier:
             "confidence": round(float(proba[idx]), 3),
             "all_scores": {self.INTENTS[i]: round(float(p), 3) for i, p in enumerate(proba)},
         }
+
+
+intent_classifier = IntentClassifier()

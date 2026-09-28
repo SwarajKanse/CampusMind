@@ -88,3 +88,6 @@ class SearchService:
                 "relevance": round(float(1.0 - f_val), 4),
             })
         return results
+
+
+search_service = SearchService()

@@ -21,12 +21,18 @@ jobs:
         run: |
           cd backend
           pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
 
       - name: Test backend imports and routes
         run: |
           cd backend
           python -c "from main import app; print('App successfully loaded in CI')"
+
+      - name: Run backend pytest suite
+        run: |
+          cd backend
+          pytest tests/test_api.py -v
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
