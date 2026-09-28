@@ -1,0 +1,22 @@
+---
+- name: Deploy CampusMind Application Stack
+  hosts: all
+  tasks:
+    - name: Ensure project directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - ../../data/sample_documents
+        - ../../data/query_logs
+        - ../../backend/chroma_db
+
+    - name: Verify Python virtual environment
+      command: python --version
+      register: python_check
+      changed_when: false
+
+    - name: Display environment status
+      debug:
+        msg: "CampusMind server environment configured successfully on {{ ansible_hostname }}"

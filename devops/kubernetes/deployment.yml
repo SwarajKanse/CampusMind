@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: campusmind-backend
+  labels:
+    app: campusmind-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: campusmind-backend
+  template:
+    metadata:
+      labels:
+        app: campusmind-backend
+    spec:
+      containers:
+        - name: backend
+          image: campusmind-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: REDIS_URL
+              value: "redis://redis-service:6379/0"
+            - name: GROQ_MODEL
+              value: "qwen/qwen3.8-27b"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: campusmind-frontend
+  labels:
+    app: campusmind-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: campusmind-frontend
+  template:
+    metadata:
+      labels:
+        app: campusmind-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: campusmind-frontend:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"

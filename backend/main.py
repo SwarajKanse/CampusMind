@@ -35,3 +35,10 @@ app.include_router(network.router, prefix="/api/network", tags=["Network"])
 app.include_router(documents.router, prefix="/api/documents", tags=["Documents"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
+
+# Prometheus metrics exporter (ASD&D Exp 10)
+try:
+    from prometheus_fastapi_instrumentator import Instrumentator
+    Instrumentator().instrument(app).expose(app)
+except Exception:
+    pass

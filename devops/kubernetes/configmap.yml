@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: campusmind-config
+data:
+  APP_NAME: "CampusMind"
+  DEBUG: "False"
+  PORT: "8000"
+  GROQ_MODEL: "qwen/qwen3.8-27b"
+  CACHE_TTL: "3600"
